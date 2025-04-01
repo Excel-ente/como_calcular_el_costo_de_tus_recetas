@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cómo calcular el costo de tus recetas</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>¿Querés saber cuánto ganás con tus recetas?</h1>
+        <p>Te enseñamos a calcular costos y poner precios reales a tus productos.</p>
+        <a href="#calculator" class="btn btn-primary">Probar calculadora gratis</a>
+      </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="calculator-section">
+      <div class="container">
+        <h2>Calculadora de insumos</h2>
+        <div class="calculator-card">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="name">Nombre del insumo</label>
+              <input type="text" id="name" placeholder="Ej: Harina">
+            </div>
+            <div class="form-group">
+              <label for="totalPrice">Precio total de compra</label>
+              <input type="number" id="totalPrice" placeholder="Ej: 1500">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="purchasedQuantity">Cantidad comprada</label>
+              <div class="input-with-select">
+                <input type="number" id="purchasedQuantity" placeholder="Ej: 1">
+                <select id="purchasedUnit">
+                  <option value="kg">kg</option>
+                  <option value="g">g</option>
+                  <option value="lt">lt</option>
+                  <option value="ml">ml</option>
+                  <option value="unidades">unid</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="usedQuantity">Cantidad usada en la receta</label>
+              <div class="input-with-select">
+                <input type="number" id="usedQuantity" placeholder="Ej: 300">
+                <select id="usedUnit">
+                  <option value="kg">kg</option>
+                  <option value="g" selected>g</option>
+                  <option value="lt">lt</option>
+                  <option value="ml">ml</option>
+                  <option value="unidades">unid</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="result" class="result-card hidden">
+            <h3>Resultado:</h3>
+            <p id="result-text"></p>
+            <div class="result-actions">
+              <button id="copy-btn" class="btn-outline">Copiar</button>
+              <button id="share-btn" class="btn-outline">Compartir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Educational Section -->
+    <section class="educational-section">
+      <div class="container">
+        <h2>Entendé tus gastos para poner precios justos</h2>
+        
+        <div class="edu-grid">
+          <div class="edu-card">
+            <div class="edu-card-header">
+              <h3>Gastos fijos</h3>
+            </div>
+            <div class="edu-card-content">
+              <ul>
+                <li>Alquiler del espacio de trabajo</li>
+                <li>Servicios (luz, gas, internet)</li>
+                <li>Amortización de equipos</li>
+                <li>Impuestos fijos mensuales</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="edu-card">
+            <div class="edu-card-header">
+              <h3>Gastos variables</h3>
+            </div>
+            <div class="edu-card-content">
+              <ul>
+                <li>Ingredientes (harina, azúcar, etc.)</li>
+                <li>Packaging (cajas, cintas, etiquetas)</li>
+                <li>Transporte y envíos</li>
+                <li>Comisiones por ventas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="formula-card">
+          <div class="formula-card-header">
+            <h3>Fórmula para calcular el precio final</h3>
+          </div>
+          <div class="formula-card-content">
+            <div class="formula-box">
+              <p>Costo de ingredientes + Gastos fijos + Ganancia deseada = Precio sugerido</p>
+            </div>
+            
+            <div class="formula-example">
+              <p><strong>Ejemplo:</strong> Para una torta de chocolate</p>
+              <ul>
+                <li>Costo de ingredientes: $2,500</li>
+                <li>Porción de gastos fijos: $500</li>
+                <li>Ganancia deseada (40%): $1,200</li>
+                <li class="example-result">Precio sugerido: $4,200</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="edu-note">
+          <p>Recordá que tu tiempo y conocimiento también tienen valor. 
+            No olvides incluirlos en tu cálculo final.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW: Cake Example Section -->
+    <section class="cake-example-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Ejemplo práctico: Torta de chocolate con ganache</h2>
+          <p class="section-intro">Vamos a calcular paso a paso el costo real de una torta de chocolate para 15 personas, incluyendo todos los elementos que muchas veces olvidamos considerar.</p>
+        </div>
+
+        <div class="cake-tabs">
+          <div class="tabs-header">
+            <button class="tab-btn active" data-tab="ingredients">Ingredientes</button>
+            <button class="tab-btn" data-tab="baking">Horneado</button>
+            <button class="tab-btn" data-tab="decoration">Decoración</button>
+            <button class="tab-btn" data-tab="packaging">Packaging</button>
+            <button class="tab-btn" data-tab="time">Tu tiempo</button>
+            <button class="tab-btn" data-tab="total">Precio final</button>
+          </div>
+
+          <div class="tabs-content">
+            <!-- Ingredients Tab -->
+            <div class="tab-content active" id="ingredients-tab">
+              <h3>1. Costo de ingredientes</h3>
+              <p>Primero, calculemos el costo de todos los ingredientes para el bizcochuelo y el relleno.</p>
+              
+              <div class="ingredients-calculator">
+                <table class="ingredients-table">
+                  <thead>
+                    <tr>
+                      <th>Ingrediente</th>
+                      <th>Cantidad</th>
+                      <th>Precio total</th>
+                      <th>Cantidad usada</th>
+                      <th>Costo</th>
+                    </tr>
+                  </thead>
+                  <tbody id="ingredients-tbody">
+                    <tr>
+                      <td>Harina 0000</td>
+                      <td>1 kg</td>
+                      <td>$800</td>
+                      <td>300 g</td>
+                      <td>$240</td>
+                    </tr>
+                    <tr>
+                      <td>Azúcar</td>
+                      <td>1 kg</td>
+                      <td>$600</td>
+                      <td>250 g</td>
+                      <td>$150</td>
+                    </tr>
+                    <tr>
+                      <td>Cacao amargo</td>
+                      <td>200 g</td>
+                      <td>$950</td>
+                      <td>80 g</td>
+                      <td>$380</td>
+                    </tr>
+                    <tr>
+                      <td>Huevos</td>
+                      <td>30 unidades</td>
+                      <td>$1,800</td>
+                      <td>5 unidades</td>
+                      <td>$300</td>
+                    </tr>
+                    <tr>
+                      <td>Leche</td>
+                      <td>1 lt</td>
+                      <td>$450</td>
+                      <td>200 ml</td>
+                      <td>$90</td>
+                    </tr>
+                    <tr>
+                      <td>Chocolate cobertura</td>
+                      <td>500 g</td>
+                      <td>$2,500</td>
+                      <td>300 g</td>
+                      <td>$1,500</td>
+                    </tr>
+                    <tr>
+                      <td>Crema</td>
+                      <td>500 ml</td>
+                      <td>$900</td>
+                      <td>250 ml</td>
+                      <td>$450</td>
+                    </tr>
+                    <tr>
+                      <td>Manteca</td>
+                      <td>200 g</td>
+                      <td>$600</td>
+                      <td>100 g</td>
+                      <td>$300</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="4" class="total-label">Total ingredientes:</td>
+                      <td id="ingredients-total" class="total-value">$3,410</td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <div class="add-ingredient-form">
+                  <h4>Agregar otro ingrediente</h4>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="ing-name">Ingrediente</label>
+                      <input type="text" id="ing-name" placeholder="Ej: Vainilla">
+                    </div>
+                    <div class="form-group">
+                      <label for="ing-total-qty">Cantidad comprada</label>
+                      <div class="input-with-select">
+                        <input type="number" id="ing-total-qty" placeholder="Ej: 100">
+                        <select id="ing-total-unit">
+                          <option value="kg">kg</option>
+                          <option value="g">g</option>
+                          <option value="lt">lt</option>
+                          <option value="ml" selected>ml</option>
+                          <option value="unidades">unid</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="ing-price">Precio total</label>
+                      <input type="number" id="ing-price" placeholder="Ej: 500">
+                    </div>
+                    <div class="form-group">
+                      <label for="ing-used-qty">Cantidad usada</label>
+                      <div class="input-with-select">
+                        <input type="number" id="ing-used-qty" placeholder="Ej: 5">
+                        <select id="ing-used-unit">
+                          <option value="kg">kg</option>
+                          <option value="g">g</option>
+                          <option value="lt">lt</option>
+                          <option value="ml" selected>ml</option>
+                          <option value="unidades">unid</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <button id="add-ingredient-btn" class="btn btn-secondary">Agregar ingrediente</button>
+                </div>
+              </div>
+
+              <div class="next-step">
+                <p>Una vez que tengas todos tus ingredientes, pasemos al siguiente paso:</p>
+                <button class="btn btn-primary next-tab-btn" data-next="baking">Siguiente: Costo de horneado</button>
+              </div>
+            </div>
+
+            <!-- Baking Tab -->
+            <div class="tab-content" id="baking-tab">
+              <h3>2. Costo de horneado</h3>
+              <p>Ahora calculemos cuánto nos cuesta el uso del horno y otros equipos.</p>
+
+              <div class="baking-calculator">
+                <div class="baking-grid">
+                  <div class="baking-card">
+                    <h4>Consumo de electricidad</h4>
+                    <div class="form-group">
+                      <label for="oven-power">Potencia del horno (watts)</label>
+                      <input type="number" id="oven-power" value="2000">
+                    </div>
+                    <div class="form-group">
+                      <label for="baking-time">Tiempo de horneado (minutos)</label>
+                      <input type="number" id="baking-time" value="45">
+                    </div>
+                    <div class="form-group">
+                      <label for="electricity-cost">Costo de kWh ($)</label>
+                      <input type="number" id="electricity-cost" value="30">
+                    </div>
+                    <div class="result-box">
+                      <p>Costo de electricidad: <span id="electricity-result">$45.00</span></p>
+                    </div>
+                  </div>
+
+                  <div class="baking-card">
+                    <h4>Amortización de equipos</h4>
+                    <div class="form-group">
+                      <label for="oven-cost">Costo del horno ($)</label>
+                      <input type="number" id="oven-cost" value="80000">
+                    </div>
+                    <div class="form-group">
+                      <label for="oven-lifespan">Vida útil (usos)</label>
+                      <input type="number" id="oven-lifespan" value="1000">
+                    </div>
+                    <div class="result-box">
+                      <p>Costo por uso: <span id="amortization-result">$80.00</span></p>
+                    </div>
+                  </div>
+
+                  <div class="baking-card">
+                    <h4>Otros costos</h4>
+                    <div class="form-group">
+                      <label for="gas-cost">Gas (si aplica)</label>
+                      <input type="number" id="gas-cost" value="0">
+                    </div>
+                    <div class="form-group">
+                      <label for="water-cost">Agua (limpieza)</label>
+                      <input type="number" id="water-cost" value="20">
+                    </div>
+                    <div class="result-box">
+                      <p>Otros costos: <span id="other-costs-result">$20.00</span></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="baking-total">
+                  <h4>Total costos de horneado</h4>
+                  <div class="total-box">
+                    <p>Total: <span id="baking-total">$145.00</span></p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="baking-tips">
+                <h4>Consejos para reducir costos de horneado:</h4>
+                <ul>
+                  <li>Aprovecha al máximo el espacio del horno horneando varias tortas a la vez.</li>
+                  <li>Precalienta el horno solo el tiempo necesario.</li>
+                  <li>Utiliza el calor residual apagando el horno unos minutos antes de terminar.</li>
+                </ul>
+              </div>
+
+              <div class="next-step">
+                <button class="btn btn-outline prev-tab-btn" data-prev="ingredients">Anterior: Ingredientes</button>
+                <button class="btn btn-primary next-tab-btn" data-next="decoration">Siguiente: Decoración</button>
+              </div>
+            </div>
+
+            <!-- Decoration Tab -->
+            <div class="tab-content" id="decoration-tab">
+              <h3>3. Costo de decoración</h3>
+              <p>La decoración puede representar una parte importante del costo total. Calculemos cuánto nos cuesta decorar nuestra torta.</p>
+
+              <div class="decoration-calculator">
+                <table class="decoration-table">
+                  <thead>
+                    <tr>
+                      <th>Elemento</th>
+                      <th>Cantidad total</th>
+                      <th>Precio</th>
+                      <th>Cantidad usada</th>
+                      <th>Costo</th>
+                    </tr>
+                  </thead>
+                  <tbody id="decoration-tbody">
+                    <tr>
+                      <td>Chocolate para decorar</td>
+                      <td>200 g</td>
+                      <td>$1,200</td>
+                      <td>50 g</td>
+                      <td>$300</td>
+                    </tr>
+                    <tr>
+                      <td>Colorante comestible</td>
+                      <td>50 ml</td>
+                      <td>$450</td>
+                      <td>5 ml</td>
+                      <td>$45</td>
+                    </tr>
+                    <tr>
+                      <td>Sprinkles</td>
+                      <td>100 g</td>
+                      <td>$350</td>
+                      <td>15 g</td>
+                      <td>$52.50</td>
+                    </tr>
+                    <tr>
+                      <td>Frutas frescas</td>
+                      <td>500 g</td>
+                      <td>$800</td>
+                      <td>150 g</td>
+                      <td>$240</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="4" class="total-label">Total decoración:</td>
+                      <td id="decoration-total" class="total-value">$637.50</td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <div class="add-decoration-form">
+                  <h4>Agregar otro elemento decorativo</h4>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="dec-name">Elemento</label>
+                      <input type="text" id="dec-name" placeholder="Ej: Flores comestibles">
+                    </div>
+                    <div class="form-group">
+                      <label for="dec-total-qty">Cantidad total</label>
+                      <div class="input-with-select">
+                        <input type="number" id="dec-total-qty" placeholder="Ej: 20">
+                        <select id="dec-total-unit">
+                          <option value="kg">kg</option>
+                          <option value="g" selected>g</option>
+                          <option value="lt">lt</option>
+                          <option value="ml">ml</option>
+                          <option value="unidades">unid</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="dec-price">Precio</label>
+                      <input type="number" id="dec-price" placeholder="Ej: 600">
+                    </div>
+                    <div class="form-group">
+                      <label for="dec-used-qty">Cantidad usada</label>
+                      <div class="input-with-select">
+                        <input type="number" id="dec-used-qty" placeholder="Ej: 5">
+                        <select id="dec-used-unit">
+                          <option value="kg">kg</option>
+                          <option value="g" selected>g</option>
+                          <option value="lt">lt</option>
+                          <option value="ml">ml</option>
+                          <option value="unidades">unid</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <button id="add-decoration-btn" class="btn btn-secondary">Agregar elemento</button>
+                </div>
+              </div>
+
+              <div class="next-step">
+                <button class="btn btn-outline prev-tab-btn" data-prev="baking">Anterior: Horneado</button>
+                <button class="btn btn-primary next-tab-btn" data-next="packaging">Siguiente: Packaging</button>
+              </div>
+            </div>
+
+            <!-- Packaging Tab -->
+            <div class="tab-content" id="packaging-tab">
+              <h3>4. Costo de packaging</h3>
+              <p>El packaging es fundamental para la presentación y entrega de tu producto. Veamos cuánto nos cuesta.</p>
+
+              <div class="packaging-calculator">
+                <table class="packaging-table">
+                  <thead>
+                    <tr>
+                      <th>Elemento</th>
+                      <th>Precio unitario</th>
+                      <th>Cantidad</th>
+                      <th>Costo</th>
+                    </tr>
+                  </thead>
+                  <tbody id="packaging-tbody">
+                    <tr>
+                      <td>Caja para torta</td>
+                      <td>$350</td>
+                      <td>1</td>
+                      <td>$350</td>
+                    </tr>
+                    <tr>
+                      <td>Base de cartón</td>
+                      <td>$120</td>
+                      <td>1</td>
+                      <td>$120</td>
+                    </tr>
+                    <tr>
+                      <td>Cinta decorativa</td>
+                      <td>$5</td>
+                      <td>2</td>
+                      <td>$10</td>
+                    </tr>
+                    <tr>
+                      <td>Etiqueta personalizada</td>
+                      <td>$15</td>
+                      <td>1</td>
+                      <td>$15</td>
+                    </tr>
+                    <tr>
+                      <td>Servilletas</td>
+                      <td>$2</td>
+                      <td>5</td>
+                      <td>$10</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="3" class="total-label">Total packaging:</td>
+                      <td id="packaging-total" class="total-value">$505</td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <div class="add-packaging-form">
+                  <h4>Agregar otro elemento de packaging</h4>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="pack-name">Elemento</label>
+                      <input type="text" id="pack-name" placeholder="Ej: Bolsa de papel">
+                    </div>
+                    <div class="form-group">
+                      <label for="pack-price">Precio unitario</label>
+                      <input type="number" id="pack-price" placeholder="Ej: 80">
+                    </div>
+                    <div class="form-group">
+                      <label for="pack-qty">Cantidad</label>
+                      <input type="number" id="pack-qty" placeholder="Ej: 1">
+                    </div>
+                  </div>
+                  <button id="add-packaging-btn" class="btn btn-secondary">Agregar elemento</button>
+                </div>
+              </div>
+
+              <div class="packaging-tips">
+                <h4>Consejos para optimizar costos de packaging:</h4>
+                <ul>
+                  <li>Compra packaging al por mayor para reducir costos unitarios.</li>
+                  <li>Considera packaging eco-friendly como valor agregado.</li>
+                  <li>Personaliza tu packaging con elementos simples pero efectivos.</li>
+                </ul>
+              </div>
+
+              <div class="next-step">
+                <button class="btn btn-outline prev-tab-btn" data-prev="decoration">Anterior: Decoración</button>
+                <button class="btn btn-primary next-tab-btn" data-next="time">Siguiente: Tu tiempo</button>
+              </div>
+            </div>
+
+            <!-- Time Tab -->
+            <div class="tab-content" id="time-tab">
+              <h3>5. El valor de tu tiempo</h3>
+              <p>Tu tiempo y habilidad son valiosos. Calculemos cuánto vale el tiempo que invertís en hacer esta torta.</p>
+
+              <div class="time-calculator">
+                <div class="time-grid">
+                  <div class="time-card">
+                    <h4>Tiempo de preparación</h4>
+                    <div class="form-group">
+                      <label for="prep-time">Preparación de ingredientes (minutos)</label>
+                      <input type="number" id="prep-time" value="30">
+                    </div>
+                    <div class="form-group">
+                      <label for="mix-time">Mezclado y batido (minutos)</label>
+                      <input type="number" id="mix-time" value="20">
+                    </div>
+                    <div class="form-group">
+                      <label for="bake-supervision">Supervisión de horneado (minutos)</label>
+                      <input type="number" id="bake-supervision" value="15">
+                    </div>
+                  </div>
+
+                  <div class="time-card">
+                    <h4>Tiempo de decoración</h4>
+                    <div class="form-group">
+                      <label for="filling-time">Relleno (minutos)</label>
+                      <input type="number" id="filling-time" value="25">
+                    </div>
+                    <div class="form-group">
+                      <label for="frosting-time">Cobertura (minutos)</label>
+                      <input type="number" id="frosting-time" value="40">
+                    </div>
+                    <div class="form-group">
+                      <label for="details-time">Detalles finales (minutos)</label>
+                      <input type="number" id="details-time" value="30">
+                    </div>
+                  </div>
+
+                  <div class="time-card">
+                    <h4>Otros tiempos</h4>
+                    <div class="form-group">
+                      <label for="cleaning-time">Limpieza (minutos)</label>
+                      <input type="number" id="cleaning-time" value="25">
+                    </div>
+                    <div class="form-group">
+                      <label for="packaging-time">Empaquetado (minutos)</label>
+                      <input type="number" id="packaging-time" value="10">
+                    </div>
+                    <div class="form-group">
+                      <label for="client-time">Atención al cliente (minutos)</label>
+                      <input type="number" id="client-time" value="15">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="time-summary">
+                  <div class="form-group">
+                    <label for="hourly-rate">¿Cuánto vale tu hora de trabajo? ($)</label>
+                    <input type="number" id="hourly-rate" value="2000">
+                  </div>
+
+                  <div class="time-results">
+                    <div class="result-item">
+                      <span>Tiempo total invertido:</span>
+                      <span id="total-time">3 horas y 30 minutos</span>
+                    </div>
+                    <div class="result-item">
+                      <span>Valor de tu tiempo:</span>
+                      <span id="time-value">$7,000</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="time-tips">
+                <h4>¿Por qué es importante valorar tu tiempo?</h4>
+                <p>Muchos emprendedores cometen el error de no incluir el valor de su tiempo en el costo final. Recuerda que tu conocimiento, habilidad y dedicación son parte fundamental del valor de tu producto.</p>
+              </div>
+
+              <div class="next-step">
+                <button class="btn btn-outline prev-tab-btn" data-prev="packaging">Anterior: Packaging</button>
+                <button class="btn btn-primary next-tab-btn" data-next="total">Siguiente: Precio final</button>
+              </div>
+            </div>
+
+            <!-- Total Tab -->
+            <div class="tab-content" id="total-tab">
+              <h3>6. Calculando el precio final</h3>
+              <p>Ahora sumemos todos los costos y determinemos el precio final de nuestra torta de chocolate.</p>
+
+              <div class="total-calculator">
+                <div class="total-summary">
+                  <table class="total-table">
+                    <thead>
+                      <tr>
+                        <th>Concepto</th>
+                        <th>Costo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Ingredientes</td>
+                        <td id="final-ingredients">$3,410.00</td>
+                      </tr>
+                      <tr>
+                        <td>Horneado</td>
+                        <td id="final-baking">$145.00</td>
+                      </tr>
+                      <tr>
+                        <td>Decoración</td>
+                        <td id="final-decoration">$637.50</td>
+                      </tr>
+                      <tr>
+                        <td>Packaging</td>
+                        <td id="final-packaging">$505.00</td>
+                      </tr>
+                      <tr>
+                        <td>Valor de tu tiempo</td>
+                        <td id="final-time">$7,000.00</td>
+                      </tr>
+                      <tr class="subtotal-row">
+                        <td>Subtotal</td>
+                        <td id="subtotal">$11,697.50</td>
+                      </tr>
+                      <tr>
+                        <td>Gastos fijos (10%)</td>
+                        <td id="fixed-costs">$1,169.75</td>
+                      </tr>
+                      <tr class="total-row">
+                        <td>Costo total</td>
+                        <td id="total-cost">$12,867.25</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="profit-calculator">
+                    <h4>Calculá tu ganancia</h4>
+                    <div class="form-group">
+                      <label for="profit-percentage">Porcentaje de ganancia deseado (%)</label>
+                      <input type="range" id="profit-percentage" min="10" max="100" value="40" step="5">
+                      <span id="profit-percentage-value">40%</span>
+                    </div>
+                    <div class="profit-result">
+                      <div class="result-item">
+                        <span>Ganancia:</span>
+                        <span id="profit-amount">$5,146.90</span>
+                      </div>
+                      <div class="result-item highlight">
+                        <span>Precio final sugerido:</span>
+                        <span id="final-price">$18,014.15</span>
+                      </div>
+                      <div class="result-item">
+                        <span>Precio por porción (15 porciones):</span>
+                        <span id="portion-price">$1,200.94</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="price-comparison">
+                  <h4>Comparativa de precios</h4>
+                  <div class="comparison-chart">
+                    <div class="chart-container">
+                      <div class="chart-bar">
+                        <div class="bar-segment ingredients-segment" style="height: 26.5%;" title="Ingredientes: $3,410.00"></div>
+                        <div class="bar-segment baking-segment" style="height: 1.1%;" title="Horneado: $145.00"></div>
+                        <div class="bar-segment decoration-segment" style="height: 5%;" title="Decoración: $637.50"></div>
+                        <div class="bar-segment packaging-segment" style="height: 3.9%;" title="Packaging: $505.00"></div>
+                        <div class="bar-segment time-segment" style="height: 54.4%;" title="Tu tiempo: $7,000.00"></div>
+                        <div class="bar-segment fixed-segment" style="height: 9.1%;" title="Gastos fijos: $1,169.75"></div>
+                      </div>
+                      <div class="chart-label">Costo</div>
+                    </div>
+                    <div class="chart-container">
+                      <div class="chart-bar">
+                        <div class="bar-segment cost-segment" style="height: 71.4%;" title="Costo total: $12,867.25"></div>
+                        <div class="bar-segment profit-segment" style="height: 28.6%;" title="Ganancia: $5,146.90"></div>
+                      </div>
+                      <div class="chart-label">Precio</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pricing-tips">
+                  <h4>Consejos para fijar tu precio:</h4>
+                  <ul>
+                    <li>Investiga los precios de la competencia, pero no te guíes solo por ellos.</li>
+                    <li>Considera el valor percibido: una torta artesanal de calidad vale más que una industrial.</li>
+                    <li>No tengas miedo de cobrar lo que realmente vale tu trabajo.</li>
+                    <li>Comunica el valor de tu producto: ingredientes premium, técnicas especiales, etc.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="next-step">
+                <button class="btn btn-outline prev-tab-btn" data-prev="time">Anterior: Tu tiempo</button>
+                <button id="recalculate-btn" class="btn btn-primary">Recalcular todo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fixed Costs Calculator Section -->
+    <section class="fixed-costs-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Calculadora de gastos fijos mensuales</h2>
+          <p class="section-intro">Los gastos fijos son aquellos que tenés que pagar independientemente de cuántas tortas vendas. Es importante distribuirlos entre tus productos.</p>
+        </div>
+
+        <div class="fixed-costs-calculator">
+          <div class="fixed-costs-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="rent">Alquiler del espacio</label>
+                <input type="number" id="rent" placeholder="Ej: 30000">
+              </div>
+              <div class="form-group">
+                <label for="electricity">Electricidad</label>
+                <input type="number" id="electricity" placeholder="Ej: 5000">
+              </div>
+              <div class="form-group">
+                <label for="gas">Gas</label>
+                <input type="number" id="gas" placeholder="Ej: 3000">
+              </div>
+              <div class="form-group">
+                <label for="water">Agua</label>
+                <input type="number" id="water" placeholder="Ej: 2000">
+              </div>
+              <div class="form-group">
+                <label for="internet">Internet</label>
+                <input type="number" id="internet" placeholder="Ej: 4000">
+              </div>
+              <div class="form-group">
+                <label for="taxes">Impuestos fijos</label>
+                <input type="number" id="taxes" placeholder="Ej: 8000">
+              </div>
+              <div class="form-group">
+                <label for="insurance">Seguros</label>
+                <input type="number" id="insurance" placeholder="Ej: 2500">
+              </div>
+              <div class="form-group">
+                <label for="marketing">Marketing</label>
+                <input type="number" id="marketing" placeholder="Ej: 5000">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="other-fixed">Otros gastos fijos</label>
+              <input type="number" id="other-fixed" placeholder="Ej: 3000">
+            </div>
+
+            <div class="fixed-costs-total">
+              <h4>Total gastos fijos mensuales: <span id="monthly-fixed-total">$0</span></h4>
+            </div>
+
+            <div class="fixed-costs-distribution">
+              <div class="form-group">
+                <label for="monthly-products">Cantidad estimada de productos por mes</label>
+                <input type="number" id="monthly-products" placeholder="Ej: 20" value="20">
+              </div>
+              <div class="distribution-result">
+                <h4>Gastos fijos por producto: <span id="fixed-per-product">$0</span></h4>
+                <p>Este es el monto que deberías sumar al costo de cada producto para cubrir tus gastos fijos.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Strategies Section -->
+    <section class="pricing-strategies-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Estrategias de precios para emprendimientos de pastelería</h2>
+          <p class="section-intro">Conocer diferentes estrategias de precios te ayudará a posicionar mejor tus productos en el mercado.</p>
+        </div>
+
+        <div class="strategies-grid">
+          <div class="strategy-card">
+            <div class="strategy-icon">💰</div>
+            <h3>Precio basado en costos</h3>
+            <p>La estrategia que hemos visto hasta ahora: sumar todos los costos y agregar un margen de ganancia.</p>
+            <div class="strategy-pros-cons">
+              <div class="pros">
+                <h4>Ventajas</h4>
+                <ul>
+                  <li>Asegura que cubras todos tus gastos</li>
+                  <li>Fácil de calcular</li>
+                  <li>Garantiza un margen de ganancia</li>
+                </ul>
+              </div>
+              <div class="cons">
+                <h4>Desventajas</h4>
+                <ul>
+                  <li>No considera el valor percibido</li>
+                  <li>Puede resultar en precios muy altos o muy bajos</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="strategy-card">
+            <div class="strategy-icon">🏆</div>
+            <h3>Precio basado en valor</h3>
+            <p>Fijar precios según el valor que tus clientes perciben de tu producto, no solo sus costos.</p>
+            <div class="strategy-pros-cons">
+              <div class="pros">
+                <h4>Ventajas</h4>
+                <ul>
+                  <li>Puede generar mayores márgenes</li>
+                  <li>Refleja la calidad y exclusividad</li>
+                  <li>Atrae a clientes que valoran la calidad</li>
+                </ul>
+              </div>
+              <div class="cons">
+                <h4>Desventajas</h4>
+                <ul>
+                  <li>Requiere conocer bien a tu cliente</li>
+                  <li>Necesita respaldo de calidad real</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="strategy-card">
+            <div class="strategy-icon">👀</div>
+            <h3>Precio basado en competencia</h3>
+            <p>Fijar precios similares, superiores o inferiores a los de tus competidores directos.</p>
+            <div class="strategy-pros-cons">
+              <div class="pros">
+                <h4>Ventajas</h4>
+                <ul>
+                  <li>Fácil de implementar</li>
+                  <li>Precios competitivos en el mercado</li>
+                </ul>
+              </div>
+              <div class="cons">
+                <h4>Desventajas</h4>
+                <ul>
+                  <li>Puede ignorar tus costos reales</li>
+                  <li>No considera tu propuesta de valor única</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pricing-recommendation">
+          <h3>Recomendación para emprendedoras pasteleras</h3>
+          <p>La mejor estrategia suele ser una combinación de las tres anteriores:</p>
+          <ol>
+            <li>Calcula tus costos totales (como hemos visto)</li>
+            <li>Investiga los precios de la competencia</li>
+            <li>Evalúa el valor único que ofreces (ingredientes especiales, técnicas, presentación)</li>
+            <li>Encuentra un precio que cubra tus costos, sea competitivo y refleje el valor de tu trabajo</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Article Cards -->
+    <section class="articles-section">
+      <div class="container">
+        <h2>Recursos educativos para tu emprendimiento</h2>
+        
+        <div class="articles-grid">
+          <div class="article-card">
+            <div class="article-icon">🎂</div>
+            <h3>¿Cómo ponerle precio a una torta?</h3>
+            <p>Aprende a calcular el precio justo para tus tortas considerando todos los factores importantes.</p>
+            <button class="btn-outline">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Descargar PDF
+            </button>
+          </div>
+          
+          <div class="article-card">
+            <div class="article-icon">💰</div>
+            <h3>¿Qué gastos no estás viendo?</h3>
+            <p>Descubre los costos ocultos que pueden estar afectando la rentabilidad de tu emprendimiento.</p>
+            <button class="btn-outline">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Descargar PDF
+            </button>
+          </div>
+          
+          <div class="article-card">
+            <div class="article-icon">📈</div>
+            <h3>Claves para crecer tu emprendimiento</h3>
+            <p>Estrategias prácticas para escalar tu negocio de pastelería sin sacrificar calidad ni ganancias.</p>
+            <button class="btn-outline">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Descargar PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <a href="#calculator" class="btn btn-primary">Empezar a calcular</a>
+        
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+          </a>
+        </div>
+        
+        <p class="footer-note">Herramienta educativa gratuita creada para ayudarte a crecer tu emprendimiento</p>
+        
+        <p class="copyright">© <span id="current-year"></span> Calculadora de Recetas | Todos los derechos reservados</p>
+      </div>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
