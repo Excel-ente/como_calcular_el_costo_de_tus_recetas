@@ -509,12 +509,11 @@ section {
   display: block;
 }
 
-/* Ingredients Table - MEJORADO PARA RESPONSIVIDAD */
+/* Ingredients Table */
 .ingredients-calculator {
   margin-bottom: 2rem;
 }
 
-/* Estilos responsivos para tablas */
 .ingredients-table, .decoration-table, .packaging-table, .total-table {
   width: 100%;
   border-collapse: collapse;
@@ -551,44 +550,6 @@ section {
 .total-value {
   font-weight: 700;
   color: var(--pink-700);
-}
-
-/* Estilos responsivos para tablas en móviles */
-@media (max-width: 767px) {
-  .ingredients-table, .decoration-table, .packaging-table, .total-table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
-    border-radius: var(--radius);
-    white-space: nowrap;
-  }
-  
-  .ingredients-table thead, .decoration-table thead, .packaging-table thead, .total-table thead {
-    display: table-header-group;
-  }
-  
-  .ingredients-table tbody, .decoration-table tbody, .packaging-table tbody, .total-table tbody {
-    display: table-row-group;
-  }
-  
-  .ingredients-table tr, .decoration-table tr, .packaging-table tr, .total-table tr {
-    display: table-row;
-  }
-  
-  .ingredients-table th, .decoration-table th, .packaging-table th, .total-table th,
-  .ingredients-table td, .decoration-table td, .packaging-table td, .total-table td {
-    display: table-cell;
-    min-width: 80px;
-  }
-  
-  .tabs-content {
-    padding: 1rem;
-  }
-  
-  .form-row {
-    grid-template-columns: 1fr;
-  }
 }
 
 .add-ingredient-form, .add-decoration-form, .add-packaging-form {
