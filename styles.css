@@ -1159,3 +1159,100 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* Estilos para tooltips */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: help;
+}
+
+.tooltip .tooltip-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: var(--pink-300);
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.tooltip .tooltip-text {
+  visibility: hidden;
+  width: 250px;
+  background-color: var(--purple-700);
+  color: white;
+  text-align: center;
+  border-radius: var(--radius);
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 0.85rem;
+  font-weight: normal;
+  box-shadow: var(--shadow-md);
+}
+
+.tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--purple-700) transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Estilos para la sección de información de cálculo */
+.calculation-info {
+  background-color: var(--pink-50);
+  border: 1px solid var(--pink-200);
+  border-radius: var(--radius);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.calculation-info h4 {
+  margin-bottom: 0.5rem;
+  color: var(--pink-700);
+}
+
+.calculation-info p {
+  margin-bottom: 0.5rem;
+}
+
+.calculation-formula {
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--pink-200);
+  text-align: center;
+  font-weight: 500;
+  color: var(--purple-700);
+}
+
+/* Estilos para advertencias de unidades */
+.unit-warning {
+  color: #e53e3e;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.input-with-select select.invalid-unit {
+  border-color: #e53e3e;
+  background-color: rgba(229, 62, 62, 0.05);
+}

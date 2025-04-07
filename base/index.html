@@ -13,20 +13,20 @@
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://Excel-ente/como_calcular_el_costo_de_tus_recetas/">
+  <meta property="og:url" content="https://www.calculadoraderecetas.com/">
   <meta property="og:title" content="Calculadora de Costos para Recetas de Pastelería">
   <meta property="og:description" content="Calcula el precio justo de tus tortas y productos de pastelería considerando todos los costos reales.">
-  <meta property="og:image" content="https://Excel-ente/como_calcular_el_costo_de_tus_recetas/images/og-image.jpg">
+  <meta property="og:image" content="https://www.calculadoraderecetas.com/images/og-image.jpg">
   
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://Excel-ente/como_calcular_el_costo_de_tus_recetas/">
+  <meta property="twitter:url" content="https://www.calculadoraderecetas.com/">
   <meta property="twitter:title" content="Calculadora de Costos para Recetas de Pastelería">
   <meta property="twitter:description" content="Calcula el precio justo de tus tortas y productos de pastelería considerando todos los costos reales.">
-  <meta property="twitter:image" content="https://Excel-ente/como_calcular_el_costo_de_tus_recetas/images/twitter-image.jpg">
+  <meta property="twitter:image" content="https://www.calculadoraderecetas.com/images/twitter-image.jpg">
   
   <!-- Canonical URL -->
-  <link rel="canonical" href="https://Excel-ente/como_calcular_el_costo_de_tus_recetas/">
+  <link rel="canonical" href="https://www.calculadoraderecetas.com/">
   
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,7 @@
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Calculadora de Recetas",
-      "url": "https://Excel-ente/como_calcular_el_costo_de_tus_recetas",
+      "url": "https://www.calculadoraderecetas.com",
       "description": "Herramienta gratuita para calcular el costo real y precio justo de recetas de pastelería.",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
@@ -71,48 +71,20 @@
       <div class="container">
         <h2>Calculadora de insumos</h2>
         <div class="calculator-card">
-          <!-- Información sobre cómo se calcula -->
-          <div class="calculation-info">
-            <h4>¿Cómo funciona esta calculadora?</h4>
-            <p>Esta calculadora te permite saber cuánto te cuesta usar una determinada cantidad de un ingrediente en tu receta.</p>
-            <p>La fórmula utilizada es:</p>
-            <div class="calculation-formula">
-              Costo = (Precio total de compra ÷ Cantidad comprada) × Cantidad usada en la receta
-            </div>
-          </div>
-
           <div class="form-grid">
             <div class="form-group">
-              <label for="name">
-                Nombre del producto
-                <span class="tooltip">
-                  <span class="tooltip-icon">?</span>
-                  <span class="tooltip-text">Ingresa el nombre del ingrediente o producto que quieres calcular (ej: Harina, Azúcar, Chocolate, etc.)</span>
-                </span>
-              </label>
+              <label for="name">Nombre del insumo</label>
               <input type="text" id="name" placeholder="Ej: Harina">
             </div>
             <div class="form-group">
-              <label for="totalPrice">
-                Precio total de compra
-                <span class="tooltip">
-                  <span class="tooltip-icon">?</span>
-                  <span class="tooltip-text">Ingresa el precio total que pagaste por el producto completo (ej: el precio del paquete de 1kg de harina)</span>
-                </span>
-              </label>
+              <label for="totalPrice">Precio total de compra</label>
               <input type="number" id="totalPrice" placeholder="Ej: 1500">
             </div>
           </div>
 
           <div class="form-grid">
             <div class="form-group">
-              <label for="purchasedQuantity">
-                Cantidad comprada
-                <span class="tooltip">
-                  <span class="tooltip-icon">?</span>
-                  <span class="tooltip-text">Ingresa la cantidad total que viene en el envase o la cantidad total que compraste</span>
-                </span>
-              </label>
+              <label for="purchasedQuantity">Cantidad comprada</label>
               <div class="input-with-select">
                 <input type="number" id="purchasedQuantity" placeholder="Ej: 1">
                 <select id="purchasedUnit">
@@ -121,19 +93,11 @@
                   <option value="lt">lt</option>
                   <option value="ml">ml</option>
                   <option value="unidades">unid</option>
-                  <option value="oz">oz</option>
                 </select>
               </div>
-              <div id="purchasedUnitWarning" class="unit-warning" style="display: none;"></div>
             </div>
             <div class="form-group">
-              <label for="usedQuantity">
-                Cantidad usada en la receta
-                <span class="tooltip">
-                  <span class="tooltip-icon">?</span>
-                  <span class="tooltip-text">Ingresa la cantidad que vas a usar en tu receta. Puedes usar una unidad diferente a la de compra y la calculadora hará la conversión automáticamente.</span>
-                </span>
-              </label>
+              <label for="usedQuantity">Cantidad usada en la receta</label>
               <div class="input-with-select">
                 <input type="number" id="usedQuantity" placeholder="Ej: 300">
                 <select id="usedUnit">
@@ -142,10 +106,8 @@
                   <option value="lt">lt</option>
                   <option value="ml">ml</option>
                   <option value="unidades">unid</option>
-                  <option value="oz">oz</option>
                 </select>
               </div>
-              <div id="usedUnitWarning" class="unit-warning" style="display: none;"></div>
             </div>
           </div>
 

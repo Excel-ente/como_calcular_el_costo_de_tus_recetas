@@ -13,50 +13,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultText = document.getElementById("result-text")
   const copyBtn = document.getElementById("copy-btn")
   const shareBtn = document.getElementById("share-btn")
-  const purchasedUnitWarning = document.getElementById("purchasedUnitWarning")
-  const usedUnitWarning = document.getElementById("usedUnitWarning")
 
   // Unit conversion mappings
   const unitConversions = {
-    kg: { g: 35.274, oz: 1000  },
-    g: { kg: 0.001, oz: 0.03527 },
-    oz: { kg: 0.0283495, g: 28.3495 },
+    kg: { g: 1000 },
+    g: { kg: 0.001 },
     lt: { ml: 1000 },
     ml: { lt: 0.001 },
-  }
-
-  // Grupos de unidades compatibles
-  const unitGroups = {
-    weight: ["kg", "g", "oz"],
-    volume: ["lt", "ml"],
-    units: ["unidades"]
-  }
-
-  // Función para obtener el grupo de una unidad
-  function getUnitGroup(unit) {
-    for (const [group, units] of Object.entries(unitGroups)) {
-      if (units.includes(unit)) {
-        return group;
-      }
-    }
-    return null;
-  }
-
-  // Función para verificar si dos unidades son compatibles
-  function areUnitsCompatible(unit1, unit2) {
-    return getUnitGroup(unit1) === getUnitGroup(unit2);
-  }
-
-  // Función para mostrar advertencia
-  function showWarning(warningElement, message) {
-    warningElement.textContent = message;
-    warningElement.style.display = "block";
-  }
-
-  // Función para ocultar advertencia
-  function hideWarning(warningElement) {
-    warningElement.textContent = "";
-    warningElement.style.display = "none";
   }
 
   // Update compatible units when purchase unit changes
@@ -86,46 +49,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // Ocultar advertencia si existe
-    hideWarning(purchasedUnitWarning);
-    hideWarning(usedUnitWarning);
-
     calculateCost()
   })
 
-  // Validar compatibilidad cuando cambia la unidad usada
-  usedUnitSelect.addEventListener("change", function() {
-    const purchasedUnit = purchasedUnitSelect.value;
-    const usedUnit = this.value;
-    
-    if (!areUnitsCompatible(purchasedUnit, usedUnit)) {
-      showWarning(usedUnitWarning, `Esta unidad no es compatible con ${purchasedUnit}. Por favor selecciona una unidad compatible.`);
-    } else {
-      hideWarning(usedUnitWarning);
-    }
-    
-    calculateCost();
-  });
-
   // Get compatible units for a given unit
   function getCompatibleUnits(unit) {
-    // Obtener el grupo de la unidad seleccionada
-    const group = getUnitGroup(unit);
-    
-    // Si es unidades, solo permitir unidades
-    if (group === "units") {
-      return ["unidades"];
+    switch (unit) {
+      case "kg":
+        return ["kg", "g"]
+      case "g":
+        return ["g", "kg"]
+      case "lt":
+        return ["lt", "ml"]
+      case "ml":
+        return ["ml", "lt"]
+      case "unidades":
+        return ["unidades"]
+      default:
+        return ["kg", "g", "lt", "ml", "unidades"]
     }
-    
-    // Si es peso o volumen, devolver todas las unidades del mismo grupo
-    if (group) {
-      return unitGroups[group];
-    }
-    
-    // Por defecto, devolver todas las unidades
-    return ["kg", "g", "oz", "lt", "ml", "unidades"];
   }
-
   // Calculate cost when inputs change
   ;[nameInput, totalPriceInput, purchasedQuantityInput, purchasedUnitSelect, usedQuantityInput, usedUnitSelect].forEach(
     (input) => {
@@ -149,8 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
       isNaN(usedQuantity) ||
       totalPrice <= 0 ||
       purchasedQuantity <= 0 ||
-      usedQuantity <= 0 ||
-      !areUnitsCompatible(purchasedUnit, usedUnit)
+      usedQuantity <= 0
     ) {
       resultDiv.classList.add("hidden")
       return
@@ -177,7 +119,157 @@ document.addEventListener("DOMContentLoaded", () => {
     const cost = unitCost * convertedUsedQuantity
 
     // Display result
-    resultText.textContent = `Usar ${usedQuantity} ${usedUnit} de ${name} te cuesta $${cost.toFixed(2)}`
+    resultText.textContent = `Usar ${usedQuantity}${usedUnit} de ${name} te cuesta $${cost.toFixed(2)}`
+    resultDiv.classList.remove("hidden")
+  }
+
+  // Copy result to clipboard
+  copyBtn.addEventListener("click", function () {
+    navigator.clipboard.writeText(resultText.textContent).then(() => {
+      const originalText = this.textContent
+      this.textContent = "Copiado!"
+      setTimeout(() => {
+        this.textContent = originalText
+      }, 2000)
+    })
+  })
+
+  // Share on WhatsApp
+  shareBtn.addEventListener("click", () => {
+    const text = resultText.textContent
+    window.open(
+      `https  function() {
+    const text = resultText.textContent;
+    window.open(\`https://wa.me/?text=${encodeURIComponent(text)}`,
+      "_blank",
+    )
+  })
+
+  // Initialize the calculator with default values
+  calculateCost()
+})
+document.addEventListener("DOMContentLoaded", () => {
+  // Set current year in footer
+  document.getElementById("current-year").textContent = new Date().getFullYear()
+
+  // Calculator functionality
+  const nameInput = document.getElementById("name")
+  const totalPriceInput = document.getElementById("totalPrice")
+  const purchasedQuantityInput = document.getElementById("purchasedQuantity")
+  const purchasedUnitSelect = document.getElementById("purchasedUnit")
+  const usedQuantityInput = document.getElementById("usedQuantity")
+  const usedUnitSelect = document.getElementById("usedUnit")
+  const resultDiv = document.getElementById("result")
+  const resultText = document.getElementById("result-text")
+  const copyBtn = document.getElementById("copy-btn")
+  const shareBtn = document.getElementById("share-btn")
+
+  // Unit conversion mappings
+  const unitConversions = {
+    kg: { g: 1000 },
+    g: { kg: 0.001 },
+    lt: { ml: 1000 },
+    ml: { lt: 0.001 },
+  }
+
+  // Update compatible units when purchase unit changes
+  purchasedUnitSelect.addEventListener("change", function () {
+    const purchasedUnit = this.value
+    const compatibleUnits = getCompatibleUnits(purchasedUnit)
+
+    // Clear current options
+    usedUnitSelect.innerHTML = ""
+
+    // Add compatible options
+    compatibleUnits.forEach((unit) => {
+      const option = document.createElement("option")
+      option.value = unit
+      option.textContent = unit
+      usedUnitSelect.appendChild(option)
+    })
+
+    // Set default compatible unit
+    if (compatibleUnits.length > 0) {
+      if (purchasedUnit === "kg" && compatibleUnits.includes("g")) {
+        usedUnitSelect.value = "g"
+      } else if (purchasedUnit === "lt" && compatibleUnits.includes("ml")) {
+        usedUnitSelect.value = "ml"
+      } else {
+        usedUnitSelect.value = compatibleUnits[0]
+      }
+    }
+
+    calculateCost()
+  })
+
+  // Get compatible units for a given unit
+  function getCompatibleUnits(unit) {
+    switch (unit) {
+      case "kg":
+        return ["kg", "g"]
+      case "g":
+        return ["g", "kg"]
+      case "lt":
+        return ["lt", "ml"]
+      case "ml":
+        return ["ml", "lt"]
+      case "unidades":
+        return ["unidades"]
+      default:
+        return ["kg", "g", "lt", "ml", "unidades"]
+    }
+  }
+  // Calculate cost when inputs change
+  ;[nameInput, totalPriceInput, purchasedQuantityInput, purchasedUnitSelect, usedQuantityInput, usedUnitSelect].forEach(
+    (input) => {
+      input.addEventListener("input", calculateCost)
+    },
+  )
+
+  function calculateCost() {
+    const name = nameInput.value
+    const totalPrice = Number.parseFloat(totalPriceInput.value)
+    const purchasedQuantity = Number.parseFloat(purchasedQuantityInput.value)
+    const purchasedUnit = purchasedUnitSelect.value
+    const usedQuantity = Number.parseFloat(usedQuantityInput.value)
+    const usedUnit = usedUnitSelect.value
+
+    // Validate inputs
+    if (
+      !name ||
+      isNaN(totalPrice) ||
+      isNaN(purchasedQuantity) ||
+      isNaN(usedQuantity) ||
+      totalPrice <= 0 ||
+      purchasedQuantity <= 0 ||
+      usedQuantity <= 0
+    ) {
+      resultDiv.classList.add("hidden")
+      return
+    }
+
+    // Calculate unit cost
+    let convertedUsedQuantity = usedQuantity
+
+    // Convert units if necessary
+    if (purchasedUnit !== usedUnit) {
+      if (unitConversions[purchasedUnit] && unitConversions[purchasedUnit][usedUnit]) {
+        // Direct conversion (e.g., kg to g)
+        const conversionFactor = unitConversions[purchasedUnit][usedUnit]
+        convertedUsedQuantity = usedQuantity / conversionFactor
+      } else if (unitConversions[usedUnit] && unitConversions[usedUnit][purchasedUnit]) {
+        // Inverse conversion (e.g., g to kg)
+        const conversionFactor = unitConversions[usedUnit][purchasedUnit]
+        convertedUsedQuantity = usedQuantity * conversionFactor
+      }
+    }
+
+    // Calculate cost
+    const unitCost = totalPrice / purchasedQuantity
+    const cost = unitCost * convertedUsedQuantity
+
+    // Display result
+    resultText.textContent = `Usar ${usedQuantity}${usedUnit} de ${name} te cuesta $${cost.toFixed(2)}`
     resultDiv.classList.remove("hidden")
   }
 
@@ -197,9 +289,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const text = resultText.textContent
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank")
   })
-
-  // Initialize the calculator with default values
-  calculateCost()
 
   // Cake Example Tabs
   const tabBtns = document.querySelectorAll(".tab-btn")
@@ -828,3 +917,4 @@ document.addEventListener("DOMContentLoaded", () => {
     calculateFixedCosts()
   }
 })
+
